@@ -1,0 +1,122 @@
+## Use Cases for Phase I Requirement
+
+### User Roles
+1. **QA User**: Quality Assurance personnel responsible for identifying, creating, editing, and deleting bugs.
+2. **RD User**: Research and Development personnel responsible for resolving bugs.
+
+### Use Cases
+
+#### QA User
+1. **Create a Bug**
+   - **Trigger**: QA identifies an issue in the system.
+   - **Precondition**: QA is logged into the system.
+   - **Process**:
+     1. Navigate to the bug creation page.
+     2. Enter the required "Summary" and "Description" fields.
+     3. Optionally fill in other fields (if any).
+     4. Submit the form.
+   - **Postcondition**: A new bug is created and saved in the system.
+
+2. **Edit a Bug**
+   - **Trigger**: QA needs to update the details of an existing bug.
+   - **Precondition**: QA is logged into the system and the bug exists.
+   - **Process**:
+     1. Navigate to the bug details page.
+     2. Click the "Edit" button.
+     3. Modify the necessary fields.
+     4. Save the changes.
+   - **Postcondition**: The bug details are updated in the system.
+
+3. **Delete a Bug**
+   - **Trigger**: QA decides that a bug is no longer valid or required.
+   - **Precondition**: QA is logged into the system and the bug exists.
+   - **Process**:
+     1. Navigate to the bug details page.
+     2. Click the "Delete" button.
+     3. Confirm the deletion action.
+   - **Postcondition**: The bug is removed from the system.
+
+#### RD User
+1. **Resolve a Bug**
+   - **Trigger**: RD has fixed the issue identified in the bug.
+   - **Precondition**: RD is logged into the system and the bug exists.
+   - **Process**:
+     1. Navigate to the bug details page.
+     2. Click the "Resolve" button.
+     3. Optionally enter resolution details (if required).
+     4. Save the resolution.
+   - **Postcondition**: The bug is marked as resolved in the system.
+
+## Use Cases for Phase II Requirement
+
+### User Roles
+1. **QA User**: Quality Assurance personnel responsible for managing bugs and test cases.
+2. **RD User**: Research and Development personnel responsible for resolving bugs and feature requests.
+3. **PM User**: Project Manager responsible for creating feature requests.
+4. **Administrator User**: User with administrative privileges to manage other users and system settings.
+
+### Use Cases
+
+#### QA User
+1. **Create a Bug**
+   - Same as Phase I, with additional fields "Severity" and "Priority".
+
+2. **Edit a Bug**
+   - Same as Phase I, with ability to update "Severity" and "Priority".
+
+3. **Delete a Bug**
+   - Same as Phase I.
+
+4. **Create a Test Case**
+   - **Trigger**: QA needs to document a test case.
+   - **Precondition**: QA is logged into the system.
+   - **Process**:
+     1. Navigate to the test case creation page.
+     2. Enter the required details.
+     3. Submit the form.
+   - **Postcondition**: A new test case is created and saved in the system.
+
+5. **Resolve a Test Case**
+   - **Trigger**: QA completes the testing and wants to mark the test case as resolved.
+   - **Precondition**: QA is logged into the system and the test case exists.
+   - **Process**:
+     1. Navigate to the test case details page.
+     2. Click the "Resolve" button.
+     3. Save the resolution.
+   - **Postcondition**: The test case is marked as resolved in the system.
+
+#### RD User
+1. **Resolve a Bug**
+   - Same as Phase I, with additional fields "Severity" and "Priority".
+
+2. **Resolve a Feature Request**
+   - **Trigger**: RD has completed the implementation of a feature request.
+   - **Precondition**: RD is logged into the system and the feature request exists.
+   - **Process**:
+     1. Navigate to the feature request details page.
+     2. Click the "Resolve" button.
+     3. Optionally enter resolution details (if required).
+     4. Save the resolution.
+   - **Postcondition**: The feature request is marked as resolved in the system.
+
+#### PM User
+1. **Create a Feature Request**
+   - **Trigger**: PM identifies a new feature requirement.
+   - **Precondition**: PM is logged into the system.
+   - **Process**:
+     1. Navigate to the feature request creation page.
+     2. Enter the required details.
+     3. Submit the form.
+   - **Postcondition**: A new feature request is created and saved in the system.
+
+#### Administrator User
+1. **Manage Users**
+   - **Trigger**: Administrator needs to add, edit, or delete a user.
+   - **Precondition**: Administrator is logged into the system.
+   - **Process**:
+     1. Navigate to the user management page.
+     2. Add, edit, or delete user details.
+     3. Save the changes.
+   - **Postcondition**: User details are updated in the system.
+
+
