@@ -1,0 +1,51 @@
+﻿@model BugTracker.Models.TicketViewModel
+<h2>Delete Ticket</h2>
+
+<div>
+
+    <h4>Are you sure you want to delete this?</h4>
+    <form asp-action="ProcessTicketDelete" method="post">
+        <input type="hidden" asp-for="Id" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+        <div class="form-group">
+            <label asp-for="TicketSummary" class="control-label"></label>
+            <input asp-for="TicketSummary" class="form-control" disabled />
+
+        </div>
+        <div class="form-group">
+            <label asp-for="TicketDescription" class="control-label">Description</label>
+            <textarea cols="20" rows="5" asp-for="TicketDescription" class="form-control" disabled></textarea>
+
+        </div>
+        <div class="form-group">
+            <label asp-for="Severity" class="control-label"></label>
+            <select asp-for="Severity" class="form-control"  disabled>
+                @foreach (var severity in Enum.GetValues(typeof(TicketViewModel.TicketSeverity)))
+                {
+                    <option value="@severity">@severity</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label asp-for="Priority" class="control-label"></label>
+            <select asp-for="Priority" class="form-control"  disabled>
+                @foreach (var priority in Enum.GetValues(typeof(TicketViewModel.TicketPriority)))
+                {
+                    <option value="@priority">@priority</option>
+                }
+            </select>
+        </div>
+      
+        <br />
+        <div class="form-group">
+            <input type="submit" value="Delete Ticket" class="btn btn-primary" />
+        </div>
+    </form>
+    <br />
+    <div>
+        <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-danger">Cancel</a>
+   
+    </div>
+ </div>

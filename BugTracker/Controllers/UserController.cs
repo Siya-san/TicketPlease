@@ -9,23 +9,19 @@ namespace BugTracker.Controllers
 
     {
         UserServices userServices = new UserServices();
-     
-        public IActionResult Index(UserViewModel user)
+        Util util = new Util();
+        
+
+
+        public IActionResult Login()
         {
-
-            return View(user);
-        }
-
-
-        public IActionResult Login(UserViewModel user)
-        {
+            if (util.IsUserTableEmpty())
+            {
+                userServices.createAdmin();
+            }
             return View("Login");
         }
-        public IActionResult SignUp()
-        {
-            return View();
-
-        }
+      
         public IActionResult ProcessLogin(UserViewModel user)
         {
             var loggedInUser = userServices.Login(user);
@@ -33,6 +29,7 @@ namespace BugTracker.Controllers
             {
                 HttpContext.Session.SetString("Username", loggedInUser.username);
                 HttpContext.Session.SetString("UserRole", loggedInUser.type.ToString());
+                HttpContext.Session.SetString("dpw", loggedInUser.defaultPw.ToString());
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -48,6 +45,7 @@ namespace BugTracker.Controllers
         {
             return View();
         }
+      
         [HttpPost]
         public IActionResult CreateNewUsers(UserViewModel user)
         {
@@ -57,6 +55,29 @@ namespace BugTracker.Controllers
                 return RedirectToAction("Index", "Home");
             }
             return View(user);
+        }
+        [HttpGet]
+       public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ProcessChangePassword(UserViewModel user,int id)
+        {
+            if (ModelState.IsValid)
+            {
+                userServices.UpdatePassword(user, id);
+                return RedirectToAction("Index", "Home");
+            }
+            return View("ChangePassword",user);
+        }
+        [HttpGet]
+        [Authorization("Administrator")]
+        public IActionResult ViewAllUsers()
+        {
+            List<UserViewModel> users = userServices.Read();
+            return View(users);
         }
     }
 }

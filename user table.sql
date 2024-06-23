@@ -2,5 +2,6 @@
     Id INT PRIMARY KEY IDENTITY(1,1),
     type NVARCHAR(50) NOT NULL,
     username NVARCHAR(100) NOT NULL UNIQUE,
-    password NVARCHAR(256) NOT NULL
+    password NVARCHAR(256) NOT NULL,
+ DefaultPw BIT NOT NULL
 );

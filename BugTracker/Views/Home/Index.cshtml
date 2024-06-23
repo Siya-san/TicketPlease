@@ -1,24 +1,212 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    var userRole = Context.Session.GetString("UserRole");
 }
+@model BugTracker.Models.UserTicketViewModel
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-        <div class="container-fluid">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BugTracker</a>
-         
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-            <ul class="navbar-nav flex-grow-1">
-            <li class="nav-item">
-               <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="CreateUsers">Home</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-            </li>
-            </ul>
-            </div>
+
+<div class="container my-4" id="maincon">
+    <div class="grid-container">
+        <div class="grid-item">
+            <h5 class="card-title">Bugs</h5>
+            @if (Model.bugsTickets != null && Model.bugsTickets.Any())
+            {
+                <div class="table-container">
+                    <table id="bug" class="table table-bordered">
+                        <thead>
+                            <tr id="table-header">
+                                <th id="col col-2">Summary</th>
+                                <th id="col col-4">Severity</th>
+                                <th id="col col-5">Priority</th>
+                                <th id="col col-6">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var ticket in Model.bugsTickets)
+                            {
+                                <tr id="table-row">
+                                    <td id="col col-2">@ticket.TicketSummary</td>
+                                    <td id="col col-4">@ticket.Severity.ToString()</td>
+                                    <td id="col col-5">@ticket.Priority.ToString()</td>
+                                    <td id="col col-6">@ticket.Status.ToString()</td>
+                                    @if (userRole == "Administrator" || userRole=="QA")
+                                    {
+                                        <td id="col col-1">
+                                            <a asp-action="DeleteTicket" asp-controller="Ticket" asp-route-id="@ticket.Id" class="btn btn-danger" title="Delete">Delete</a>
+                                        </td>
+                                    }
+                                    @if (userRole == "Administrator" || userRole == "RD")
+                                    {
+                                        <td id="col col-1">
+                                            <a asp-action="ResolveTicket" asp-controller="Ticket" asp-route-id="@ticket.Id" class="btn btn-warning" title="Resolve">Resolve</a>
+                                        </td>
+                                    }
+                                    <td id="col col-1">
+                                        <a asp-action="ViewTicket" asp-controller="Ticket" asp-route-id="@ticket.Id" class="btn btn-primary" title="View">View</a>
+                                    </td>
+                                    @if (userRole == "Administrator" || userRole == "QA")
+                                    {
+                                        <td id="col col-1">
+                                            <a asp-action="EditTicket" asp-controller="Ticket" asp-route-id="@ticket.Id" class="btn btn-info" title="Edit">Edit</a>
+                                        </td>
+                                    }
+                                                                  
+                                    
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <p>No bug tickets found.</p>
+            }
         </div>
-    </nav>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+        <div class="grid-item">
+            <h5 class="card-title">Request</h5>
+            @if (Model.requestTickets != null && Model.requestTickets.Any())
+            {
+                <div class="table-container">
+                    <table id="request" class="table table-bordered">
+                        <thead>
+                            <tr id="table-header">
+                                <th id="col col-2">Summary</th>
+                                <th id="col col-4">Severity</th>
+                                <th id="col col-5">Priority</th>
+                                <th id="col col-6">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var ticket in Model.requestTickets)
+                            {
+                                <tr id="table-row">
+                                    <td id="col col-2">@ticket.TicketSummary</td>
+                                    <td id="col col-4">@ticket.Severity.ToString()</td>
+                                    <td id="col col-5">@ticket.Priority.ToString()</td>
+                                    <td id="col col-6">@ticket.Status.ToString()</td>
+                                    @if (userRole == "Administrator" || userRole == "PM")
+                                    {
+                                        <td id="col col-1">
+                                            <a asp-action="DeleteTicket" asp-controller="Ticket" asp-route-id="@ticket.Id" class="btn btn-danger" title="Delete">Delete</a>
+                                        </td>
+                                    }
+                                    @if (userRole == "Administrator" || userRole == "RD")
+                                    {
+                                        <td id="col col-1">
+                                            <a asp-action="ResolveTicket" asp-controller="Ticket" asp-route-id="@ticket.Id" class="btn btn-warning" title="Resolve">Resolve</a>
+                                        </td>
+                                    }
+                                    <td id="col col-1">
+                                        <a asp-action="ViewTicket" asp-controller="Ticket" asp-route-id="@ticket.Id" class="btn btn-primary" title="View">View</a>
+                                    </td>
+                                    @if (userRole == "Administrator" || userRole == "PM")
+                                    {
+                                        <td id="col col-1">
+                                            <a asp-action="ViewTicket" asp-controller="Ticket" asp-route-id="@ticket.Id" class="btn btn-info" title="Edit">Edit</a>
+                                        </td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <p>No request tickets found.</p>
+            }
+        </div>
+        <div class="grid-item">
+            <h5 class="card-title">Test Feature</h5>
+            @if (Model.testTickets != null && Model.testTickets.Any())
+            {
+                <div class="table-container">
+                    <table id="test" class="table table-bordered">
+                        <thead>
+                            <tr id="table-header">
+                                <th id="col col-2">Summary</th>
+                                <th id="col col-4">Severity</th>
+                                <th id="col col-5">Priority</th>
+                                <th id="col col-6">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var ticket in Model.testTickets)
+                            {
+                                <tr id="table-row">
+                                    <td id="col col-2">@ticket.TicketSummary</td>
+                                    <td id="col col-4">@ticket.Severity.ToString()</td>
+                                    <td id="col col-5">@ticket.Priority.ToString()</td>
+                                    <td id="col col-6">@ticket.Status.ToString()</td>
+                                    @if (userRole == "Administrator" || userRole == "QA")
+                                    {
+                                        <td id="col col-1">
+                                            <a asp-action="DeleteTicket" asp-controller="Ticket" asp-route-id="@ticket.Id" class="btn btn-danger" title="Delete">Delete</a>
+                                        </td>
+                                    }
+                                    @if (userRole == "Administrator" || userRole == "RD")
+                                    {
+                                        <td id="col col-1">
+                                            <a asp-action="ResolveTicket" asp-controller="Ticket" asp-route-id="@ticket.Id" class="btn btn-warning" title="Resolve">Resolve</a>
+                                        </td>
+                                    }
+                                
+                                        <td id="col col-1">
+                                            <a asp-action="ViewTicket" asp-controller="Ticket" asp-route-id="@ticket.Id" class="btn btn-primary" title="View">View</a>
+                                        </td>
+                                    
+                                    @if (userRole == "Administrator" || userRole == "QA")
+                                    {
+                                        <td id="col col-1">
+                                            <a asp-action="EditTicket" asp-controller="Ticket" asp-route-id="@ticket.Id" class="btn btn-info" title="View">Edit</a>
+                                        </td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <p>No test tickets found.</p>
+            }
+        </div>
+        <div class="grid-item">
+            <h5 class="card-title">All Users</h5>
+            @if (Model.allUsers != null && Model.allUsers.Any())
+            {
+                <div class="table-container">
+                    <table id="users" class="table table-bordered">
+                        <thead>
+                            <tr id="table-header">
+                                <th id="col col-1">ID</th>
+                                <th id="col col-1">Username</th>
+                                <th id="col col-1">User Type</th>
+                           
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var user in Model.allUsers)
+                            {
+                                <tr id="table-row">
+                                    <td id="col col-1">@user.Id</td>
+                                    <td id="col col-1">@user.username</td>
+                                    <td id="col col-1">@user.type</td>
+                               
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <p>No users found.</p>
+            }
+        </div>
+    </div>
 </div>
+
+

@@ -15,6 +15,8 @@ namespace BugTracker.Models
      public UserType type { get; set; }
      public string username { get; set; }
      public string password { get; set; }
+        
+        public bool defaultPw { get; set; }
 
     }   
 }

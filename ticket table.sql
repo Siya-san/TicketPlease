@@ -1,0 +1,9 @@
+﻿CREATE TABLE Tickets (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    Status NVARCHAR(50) NOT NULL,
+    TicketSummary NVARCHAR(255) NOT NULL,
+    TicketDescription NVARCHAR(MAX) NOT NULL,
+    Severity NVARCHAR(50) NOT NULL,
+    Priority NVARCHAR(50) NOT NULL,
+    Type NVARCHAR(50) NOT NULL
+);

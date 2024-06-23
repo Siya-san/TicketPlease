@@ -1,0 +1,59 @@
+﻿
+@model BugTracker.Models.TicketViewModel
+@{
+    ViewData["Title"] = "Create Bug Ticket";
+}
+<h2>Create Bug Ticket</h2>
+<hr />
+<form asp-action="CreateNewBugTicket" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+    <div class="form-group">
+        <label asp-for="TicketSummary" class="control-label">Summary</label>
+        <input asp-for="TicketSummary" class="form-control" />
+        <span asp-validation-for="TicketSummary" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="TicketDescription" class="control-label">Description</label>
+        <textarea cols="20" rows="5" asp-for="TicketDescription" class="form-control"></textarea>
+
+        <span asp-validation-for="TicketDescription" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Severity" class="control-label"></label>
+    <div>
+            @foreach (var severity in Enum.GetValues(typeof(TicketViewModel.TicketSeverity)))
+            {
+                <div class="form-check">
+                    <input class="form-check-input" type="radio"  asp-for="Severity" value="@severity" id="severity-@severity">
+                    <label class="form-check-label" for="severity-@severity">@severity</label>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Priority" class="control-label"></label>
+        <div>
+            @foreach (var priority in Enum.GetValues(typeof(TicketViewModel.TicketPriority)))
+            {
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" asp-for="Priority" value="@priority" id="priority-@priority">
+                    <label class="form-check-label" for="priority-@priority">@priority</label>
+                </div>
+
+            }
+        </div>
+    </div>
+
+    <div class="form-group">
+        <br />
+        <input type="submit" value="Record Bug" class="btn btn-primary" />
+    </div>
+</form>
+<br />
+<div id="cancelButton">
+    <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-danger">Cancel</a>
+
+</div>

@@ -1,8 +1,8 @@
-html {
+﻿html {
   font-size: 14px;
 }
 
-@media (min-width: 768px) {
+@media {
   html {
     font-size: 16px;
   }
@@ -13,10 +13,57 @@ html {
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    height: fit-content;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 10px;
+    background-color:burlywood;
+  height:fit-content;
+}
+
+label {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.grid-container {
+ 
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.grid-item {
+    background-color: blanchedalmond;
+    border: 1px solid #ccc;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.table-container { 
+    
+    max-height: 400px;
+    overflow-y: auto;
+
+}
+
+#cancelButton {
+  float:right;
+}
+footer{
+    height:10px;
+}
+table{
+    background-color:ghostwhite;
+    border-radius:10px;
+    border:solid;
+}
+form {
+    background-color: blanchedalmond;
+    margin:25px;
+    padding:30px;
 }
